@@ -9,17 +9,23 @@ import { LogOut, User2 } from "lucide-react";
 const Navbar = () => {
   const user = false;
   return (
-    <div className="bg-white h-16 w-full flex justify-between items-center px-8">
+    <div className="bg-white h-16 w-full flex justify-between items-center px-20">
       <div className="leftNav ">
-        <div className="h-12 w-12">
+        <div className="h-14 w-14">
           <img src={logo} alt="" className="h-full w-full" />
         </div>
       </div>
       <div className="rightNav flex gap-12">
         <ul className="flex font-medium items-center justify-center gap-5">
-          <li>Home</li>
-          <li>Jobs</li>
-          <li>Browse</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/jobs">Jobs</Link>
+          </li>
+          <li>
+            <Link to="/browse">Browse</Link>
+          </li>
         </ul>
 
         {!user ? (
