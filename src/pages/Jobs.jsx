@@ -1,5 +1,6 @@
 import FilterCard from "@/components/Jobs/FilterCard";
 import Job from "@/components/Jobs/Job";
+import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import React from "react";
 
@@ -29,6 +30,7 @@ const Jobs = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
