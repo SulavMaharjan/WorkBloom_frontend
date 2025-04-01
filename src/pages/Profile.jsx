@@ -1,9 +1,11 @@
 import AppliedJobTable from "@/components/Profile/AppliedJobTable";
 import UpdateProfileDialog from "@/components/Profile/UpdateProfileDialog ";
+import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 import { Contact, Mail, Pen, Bookmark, FileText } from "lucide-react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,6 +14,7 @@ import { useSelector } from "react-redux";
 const isResume = true;
 
 const Profile = () => {
+  useGetAppliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
 
@@ -112,6 +115,7 @@ const Profile = () => {
         </div>
       </div>
       <UpdateProfileDialog open={open} setOpen={setOpen} />
+      <Footer />
     </div>
   );
 };

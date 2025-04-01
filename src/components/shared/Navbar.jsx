@@ -40,15 +40,28 @@ const Navbar = () => {
       </div>
       <div className="rightNav flex gap-12">
         <ul className="flex font-medium items-center justify-center gap-5">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/jobs">Jobs</Link>
-          </li>
-          <li>
-            <Link to="/browse">Browse</Link>
-          </li>
+          {user && user.role === "admin" ? (
+            <>
+              <li>
+                <Link to="/admin/companies">Companies</Link>
+              </li>
+              <li>
+                <Link to="/admin/jobs">Jobs</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/jobs">Jobs</Link>
+              </li>
+              <li>
+                <Link to="/browse">Browse</Link>
+              </li>
+            </>
+          )}
         </ul>
 
         {!user ? (
@@ -64,10 +77,7 @@ const Navbar = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
+                <AvatarImage src={user?.profile?.profilePhoto} alt="@shadcn" />
               </Avatar>
             </PopoverTrigger>
             <PopoverContent className="w-80">
@@ -75,25 +85,28 @@ const Navbar = () => {
                 <div className="flex gap-4 space-y-2 items-center">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
+                      src={user?.profile?.profilePhoto}
                       alt="@shadcn"
                     />
                   </Avatar>
                   <div>
-                    <h1 className="font-medium">Sulav Maharjan</h1>
+                    <h1 className="font-medium">{user?.fullname}</h1>
                     <p className="text-sm text-muted-foreground">
-                      Lorem ipsum dolor sit amet.
+                      {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex gap-3 text-gray-600 w-30 items-center">
-                    <User2 />
-                    <Button variant="link">
-                      <Link to="/profile">View Profile</Link>
-                    </Button>
-                  </div>
+                  {user && user.role === "user" && (
+                    <div className="flex gap-3 text-gray-600 w-30 items-center">
+                      <User2 />
+                      <Button variant="link">
+                        <Link to="/profile">View Profile</Link>
+                      </Button>
+                    </div>
+                  )}
+
                   <div className="flex gap-3 text-gray-600 w-30 items-center">
                     <LogOut />
                     <Button onClick={logoutHandler} variant="link">
