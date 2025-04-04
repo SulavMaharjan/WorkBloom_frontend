@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import SignupCartoon from "../../assets/images/SignUpCartoon.png";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -64,112 +65,178 @@ const Signup = () => {
       dispatch(setLoading(false));
     }
   };
+
   useEffect(() => {
     if (user) {
       navigate("/");
     }
   }, []);
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
-        <form
-          onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
-        >
-          <h1 className="font-bold text-xl pb-5">Sign Up</h1>
-          <div className="my-2">
-            <Label>Full Name</Label>
-            <Input
-              type="text"
-              value={input.fullname}
-              name="fullname"
-              onChange={changeEventHandler}
-              placeholder="Enter your name here."
-            />
-          </div>
-          <div className="my-2">
-            <Label>Email</Label>
-            <Input
-              type="email"
-              value={input.email}
-              name="email"
-              onChange={changeEventHandler}
-              placeholder="Enter your email here."
-            />
-          </div>
-          <div className="my-2">
-            <Label>Phone Number</Label>
-            <Input
-              type="text"
-              value={input.phoneNumber}
-              name="phoneNumber"
-              onChange={changeEventHandler}
-              placeholder="Enter your phone number here."
-            />
-          </div>
-          <div className="my-2">
-            <Label>Password</Label>
-            <Input
-              type="password"
-              value={input.password}
-              name="password"
-              onChange={changeEventHandler}
-              placeholder="Enter your password here."
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex item-center gap-4 my-5">
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="user"
-                  checked={input.role === "user"}
-                  onChange={changeEventHandler}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="r1">User</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="admin"
-                  checked={input.role === "admin"}
-                  onChange={changeEventHandler}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="r2">Admin</Label>
-              </div>
-            </RadioGroup>
-            <div className="flex items-center gap-2 ">
-              <Label>Profile</Label>
-              <Input
-                accept="image/*"
-                type="file"
-                onChange={changeFileHandler}
-                className="cursor-pointer"
+      <div className="flex items-center justify-center h-full pt-6 pb-16 px-4">
+        <div className="w-full max-w-6xl bg-white rounded-xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+          {/* Illustration Section */}
+          <div className="w-full md:w-1/2 bg-blue-50 p-8 flex items-center justify-center hidden md:flex">
+            <div className="max-w-md">
+              <img
+                src={SignupCartoon}
+                alt="Person working on laptop"
+                className="w-full h-auto"
               />
             </div>
           </div>
-          {loading ? (
-            <Button className="w-full my-4">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait
-            </Button>
-          ) : (
-            <Button type="submit" className="w-full my-4 ">
-              Signup
-            </Button>
-          )}
-          <span className="text-sm">
-            Already have an account?
-            <Link to="/login" className="text-blue-600 px-2">
-              Login
-            </Link>
-          </span>
-        </form>
+
+          {/* Form Section */}
+          <div className="w-full md:w-1/2 p-8 md:p-12">
+            <div className="max-w-md mx-auto">
+              <h1 className="text-3xl font-bold text-gray-900 mb-6">Sign up</h1>
+
+              <form onSubmit={submitHandler} className="space-y-6">
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 block mb-2">
+                    Full Name
+                  </Label>
+                  <Input
+                    type="text"
+                    value={input.fullname}
+                    name="fullname"
+                    onChange={changeEventHandler}
+                    placeholder="Your Full Name"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 block mb-2">
+                    Email
+                  </Label>
+                  <Input
+                    type="email"
+                    value={input.email}
+                    name="email"
+                    onChange={changeEventHandler}
+                    placeholder="Your Email"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 block mb-2">
+                    Phone Number
+                  </Label>
+                  <Input
+                    type="text"
+                    value={input.phoneNumber}
+                    name="phoneNumber"
+                    onChange={changeEventHandler}
+                    placeholder="Your Phone Number"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 block mb-2">
+                    Password
+                  </Label>
+                  <Input
+                    type="password"
+                    value={input.password}
+                    name="password"
+                    onChange={changeEventHandler}
+                    placeholder="Password"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
+                </div>
+
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex-1">
+                    <Label className="text-sm font-medium text-gray-700 block mb-2">
+                      Account Type
+                    </Label>
+                    <RadioGroup className="flex items-center gap-4">
+                      <div className="flex items-center">
+                        <Input
+                          type="radio"
+                          name="role"
+                          value="user"
+                          checked={input.role === "user"}
+                          onChange={changeEventHandler}
+                          className="cursor-pointer mr-2"
+                          id="role-user"
+                        />
+                        <Label
+                          htmlFor="role-user"
+                          className="text-sm text-gray-600 cursor-pointer"
+                        >
+                          User
+                        </Label>
+                      </div>
+                      <div className="flex items-center">
+                        <Input
+                          type="radio"
+                          name="role"
+                          value="admin"
+                          checked={input.role === "admin"}
+                          onChange={changeEventHandler}
+                          className="cursor-pointer mr-2"
+                          id="role-admin"
+                        />
+                        <Label
+                          htmlFor="role-admin"
+                          className="text-sm text-gray-600 cursor-pointer"
+                        >
+                          Admin
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  <div className="flex-1">
+                    <Label className="text-sm font-medium text-gray-700 block mb-2">
+                      Profile Picture
+                    </Label>
+                    <Input
+                      accept="image/*"
+                      type="file"
+                      onChange={changeFileHandler}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                {loading ? (
+                  <Button className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-all">
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Creating account...
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Sign up
+                  </Button>
+                )}
+              </form>
+
+              <p className="mt-8 text-center text-sm text-gray-600">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Log in
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
