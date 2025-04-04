@@ -25,7 +25,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     email: user?.email,
     phoneNumber: user?.phoneNumber,
     bio: user?.profile?.bio,
-    skills: user?.profile?.skills?.map((skill) => skill),
+    skills: user?.profile?.skills?.join(", ") || "",
+    autoApply: user?.profile?.autoApply || false,
     file: user?.profile?.resume,
   });
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
+    formData.append("autoApply", input.autoApply);
     if (input.file) {
       formData.append("file", input.file);
     }
@@ -149,9 +151,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                   name="skills"
                   value={input.skills}
                   onChange={changeEventHandler}
+                  placeholder="JavaScript, React, Node.js"
                   className="col-span-3"
                 />
               </div>
+
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="file" className="text-right">
                   Resume
@@ -164,6 +168,26 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                   onChange={fileChangeHandler}
                   className="col-span-3"
                 />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="autoApply" className="text-right">
+                  Auto-Apply
+                </Label>
+                <div className="flex items-center gap-2 col-span-3">
+                  <input
+                    type="checkbox"
+                    id="autoApply"
+                    name="autoApply"
+                    checked={input.autoApply}
+                    onChange={(e) =>
+                      setInput({ ...input, autoApply: e.target.checked })
+                    }
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <Label htmlFor="autoApply" className="text-sm text-gray-500">
+                    Automatically apply to matching jobs (≥70% skill match)
+                  </Label>
+                </div>
               </div>
             </div>
             <DialogFooter>

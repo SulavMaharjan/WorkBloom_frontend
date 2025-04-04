@@ -35,17 +35,24 @@ const AppliedJobTable = () => {
                 <TableCell>{appliedJob?.job?.title}</TableCell>
                 <TableCell>{appliedJob?.job?.company?.name}</TableCell>
                 <TableCell className="text-right">
-                  <Badge
-                    className={` ${
-                      appliedJob?.status == "rejected"
-                        ? "bg-red-400"
-                        : appliedJob.status == "pending"
-                        ? "bg-gray-400"
-                        : "bg-[#FF764A]"
-                    } `}
-                  >
-                    {appliedJob.status.toUpperCase()}
-                  </Badge>
+                  <div className="flex justify-end gap-2">
+                    <Badge
+                      className={`${
+                        appliedJob?.status == "rejected"
+                          ? "bg-red-400"
+                          : appliedJob.status == "pending"
+                          ? "bg-gray-400"
+                          : "bg-[#FF764A]"
+                      }`}
+                    >
+                      {appliedJob.status.toUpperCase()}
+                    </Badge>
+                    {appliedJob.isAutoApplied && (
+                      <Badge className="bg-blue-100 text-blue-800">
+                        Auto-Applied
+                      </Badge>
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             ))

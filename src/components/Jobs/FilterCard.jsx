@@ -27,7 +27,7 @@ const filterData = [
   },
   {
     filterType: "Salary",
-    array: ["0 to 40", "40 to 100", "100 to 500"],
+    array: ["0 to 4000", "4000 to 10000", "10000 to 50000"],
   },
 ];
 

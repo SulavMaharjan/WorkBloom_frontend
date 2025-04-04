@@ -33,7 +33,10 @@ const JobDescription = () => {
 
       if (res.data.success) {
         setIsApplied(true); //Update local state
-        const updatedSingleJob = {...singleJob, applications : [...singleJob.applications,{applicant:user?._id}]}
+        const updatedSingleJob = {
+          ...singleJob,
+          applications: [...singleJob.applications, { applicant: user?._id }],
+        };
         dispatch(setSingleJob(updatedSingleJob)); //real time UI update
         toast.success(res.data.message);
       }
@@ -51,7 +54,11 @@ const JobDescription = () => {
         });
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
-          setIsApplied(res.data.job.applications.some(application=>application.applicant == user?._id)) //Ensure that the state is in sync with the fetched data
+          setIsApplied(
+            res.data.job.applications.some(
+              (application) => application.applicant == user?._id
+            )
+          ); //Ensure that the state is in sync with the fetched data
         }
       } catch (error) {
         console.log(error);
@@ -103,15 +110,17 @@ const JobDescription = () => {
             Minimum Qualification: <span className="font-normal">Bachelor</span>
           </h2>
           <h2 className="text-lg font-semibold">
-            Experience:{" "}
-            <span className="font-normal">{singleJob?.experience} years</span>
+            Experience:
+            <span className="font-normal">
+              {singleJob?.experienceLevel} years
+            </span>
           </h2>
           <h2 className="text-lg font-semibold">
             Location: <span className="font-normal">{singleJob?.location}</span>
           </h2>
           <h2 className="text-lg font-semibold">
             Salary:
-            <span className="font-normal">{singleJob?.salary} LPA</span>
+            <span className="font-normal">{singleJob?.salary} USD</span>
           </h2>
           <h2 className="text-lg font-semibold">
             Total Applicants :
@@ -135,36 +144,9 @@ const JobDescription = () => {
 
         {/* Requirements */}
         <div className="mt-6 border-t pt-4">
-          <h2 className="text-xl font-bold">Laravel Developer Requirements:</h2>
+          <h2 className="text-xl font-bold"> Job Requirements:</h2>
           <ul className="list-disc pl-6 text-gray-700 mt-2">
-            <li>
-              A degree in programming, computer science, or a related field.
-            </li>
-            <li>
-              Experience working with PHP, performing unit testing, and managing
-              APIs such as REST.
-            </li>
-            <li>A solid understanding of application design using Laravel.</li>
-            <li>Knowledge of database design and querying using SQL.</li>
-            <li>Proficiency in HTML and JavaScript.</li>
-            <li>Practical experience using the MVC architecture.</li>
-            <li>Strong communication and problem-solving skills.</li>
-          </ul>
-        </div>
-
-        {/* Responsibilities */}
-        <div className="mt-6 border-t pt-4">
-          <h2 className="text-xl font-bold">Responsibilities:</h2>
-          <ul className="list-disc pl-6 text-gray-700 mt-2">
-            <li>
-              Discussing project aims with the client and development team.
-            </li>
-            <li>Designing and building web applications using Laravel.</li>
-            <li>
-              Troubleshooting issues in the implementation and debug builds.
-            </li>
-            <li>Ensuring that integrations run smoothly.</li>
-            <li>Maintaining web-based applications.</li>
+            <li>{singleJob?.requirements}</li>
           </ul>
         </div>
       </div>

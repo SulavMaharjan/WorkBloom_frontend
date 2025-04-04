@@ -25,7 +25,7 @@ const HeroSection = () => {
           <div className="relative">
             <img src={Orange} alt="" className="h-full w-full pt-2" />
 
-            <div className="absolute top-56 left-10 flex flex-col gap-5 ">
+            <div className="absolute top-60 left-10 flex flex-col gap-5 ">
               <div>
                 <h1 className="font-bold text-4xl">WorkBloom -</h1>
                 <h1 className="font-bold text-4xl">
@@ -44,7 +44,7 @@ const HeroSection = () => {
           <div className="flex justify-center pl-10">
             <img src={Blue} alt="" className=" w-[545px] h-[500px]" />
           </div>
-          <img src={employee} alt="" className="absolute left-0 bottom-11" />
+          <img src={employee} alt="" className="absolute left-0 bottom-20" />
         </div>
       </div>
       <div className="flex w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto">

@@ -32,7 +32,15 @@ const Jobs = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto mt-10">
+      <div className="w-[900px] pt-10 pl-[150px]">
+        <h1 className="font-bold text-3xl pb-2">Kickstart Your Career</h1>
+        <p className="text-m w-auto text-gray-600">
+          Ready to take the next step in your career? Explore a range of
+          exciting job opportunities and find the perfect fit for your skills
+          and aspirations. Your future starts here!
+        </p>
+      </div>
+      <div className="max-w-7xl mx-auto mt-4">
         <div className="flex gap-10">
           <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
             {filterJobs.length <= 0 ? (

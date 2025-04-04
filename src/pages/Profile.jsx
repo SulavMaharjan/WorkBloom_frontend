@@ -27,10 +27,7 @@ const Profile = () => {
           <h2 className="font-semibold text-lg mb-4">Profile Options</h2>
           <div className="flex justify-center items-center py-6">
             <Avatar className="h-28 w-28 border-3 border-gray-300 shadow-md">
-              <AvatarImage
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                alt="profile"
-              />
+              <AvatarImage src={user?.profile?.profilePhoto} alt="profile" />
             </Avatar>
           </div>
           <ul className="space-y-3 text-gray-700">
@@ -87,6 +84,23 @@ const Profile = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Add auto-apply status badge */}
+          <div className="my-4">
+            <h1 className="text-lg font-semibold">Auto-Apply Status</h1>
+            <Badge
+              className={`mt-2 ${
+                user?.profile?.autoApply ? "bg-green-500" : "bg-gray-500"
+              }`}
+            >
+              {user?.profile?.autoApply ? "Enabled" : "Disabled"}
+            </Badge>
+            {user?.profile?.autoApply && (
+              <p className="text-sm text-gray-500 mt-1">
+                We'll automatically apply to jobs matching your skills
+              </p>
+            )}
           </div>
 
           {/* Resume Section */}
