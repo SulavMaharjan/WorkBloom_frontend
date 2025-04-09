@@ -137,13 +137,6 @@ const AdminJobsTable = () => {
                   <PopoverContent className="w-48 p-2">
                     <div className="flex flex-col space-y-1">
                       <button
-                        onClick={() => navigate(`/admin/companies/${job._id}`)}
-                        className="flex items-center gap-2 w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100 transition-colors"
-                      >
-                        <Edit2 className="w-4 h-4 text-blue-600" />
-                        <span>Edit Details</span>
-                      </button>
-                      <button
                         onClick={() =>
                           navigate(`/admin/jobs/${job._id}/applicants`)
                         }
