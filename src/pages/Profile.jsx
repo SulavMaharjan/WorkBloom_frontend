@@ -45,7 +45,9 @@ const Profile = () => {
           <div className="bg-gray-50 border border-gray-200 rounded-sm p-8 shadow-lg">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="font-semibold text-2xl">{user?.fullname}</h1>
+                <h1 className="font-semibold text-2xl pb-3">
+                  {user?.fullname}
+                </h1>
                 <p className="text-gray-600">{user?.profile?.bio}</p>
               </div>
 

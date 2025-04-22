@@ -7,7 +7,13 @@ import { setSearchedQuery } from "@/redux/jobSlice";
 const filterData = [
   {
     filterType: "Location",
-    array: ["Kathmandu", "Lalitpur", "Pokhara", "Bhaktapur", "Chitwan"],
+    array: [
+      "Kumaripati",
+      "Jawalakhel",
+      "Pulchwok",
+      "Putalisadhak",
+      "Kamalpokhari",
+    ],
   },
   {
     filterType: "Industry",
@@ -17,18 +23,18 @@ const filterData = [
       "Data Science",
       "Human resource",
       "Fullstack",
-      "Accounting",
+      "Finance",
       "Designing",
     ],
   },
-  {
-    filterType: "Preference",
-    array: ["Part Time", "Full Time"],
-  },
-  {
-    filterType: "Salary",
-    array: ["0 to 4000", "4000 to 10000", "10000 to 50000"],
-  },
+  // {
+  //   filterType: "Preference",
+  //   array: ["Part Time", "Full Time"],
+  // },
+  // {
+  //   filterType: "Salary",
+  //   array: ["0 to 4000", "4000 to 10000", "10000 to 50000"],
+  // },
 ];
 
 const FilterCard = () => {

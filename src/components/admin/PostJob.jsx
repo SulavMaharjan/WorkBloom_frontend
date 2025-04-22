@@ -36,7 +36,8 @@ const PostJob = () => {
 
   const { companies } = useSelector((store) => store.company);
   const changeEventHandler = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
   };
 
   const SelectChangeHandler = (value) => {
@@ -48,6 +49,25 @@ const PostJob = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Validations
+    const salaryNumber = parseFloat(input.salary);
+    const experienceNumber = parseFloat(input.experience);
+    const positionNumber = parseInt(input.position);
+
+    if (isNaN(salaryNumber) || salaryNumber <= 0) {
+      toast.error("Salary must be a positive number.");
+      return;
+    }
+    if (isNaN(experienceNumber) || experienceNumber < 0) {
+      toast.error("Experience level must be a non-negative number.");
+      return;
+    }
+    if (isNaN(positionNumber) || positionNumber <= 0) {
+      toast.error("Number of positions must be greater than 0.");
+      return;
+    }
+
     try {
       setLoading(true);
       const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
@@ -78,10 +98,12 @@ const PostJob = () => {
               <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
                 <Briefcase className="h-5 w-5" />
               </div>
-              <h1 className="text-lg font-medium text-gray-800">Post New Job</h1>
+              <h1 className="text-lg font-medium text-gray-800">
+                Post New Job
+              </h1>
             </div>
           </div>
-          
+
           <form onSubmit={submitHandler} className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -94,7 +116,7 @@ const PostJob = () => {
                   placeholder="Job title"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Description</Label>
                 <Input
@@ -105,7 +127,7 @@ const PostJob = () => {
                   placeholder="Job description"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Requirements</Label>
                 <Input
@@ -116,7 +138,7 @@ const PostJob = () => {
                   placeholder="Required skills/qualifications"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Salary</Label>
                 <Input
@@ -127,7 +149,7 @@ const PostJob = () => {
                   placeholder="Salary range"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Location</Label>
                 <Input
@@ -138,7 +160,7 @@ const PostJob = () => {
                   placeholder="Job location"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Job Type</Label>
                 <Input
@@ -149,7 +171,7 @@ const PostJob = () => {
                   placeholder="Full-time, Part-time, etc."
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Experience Level</Label>
                 <Input
@@ -160,7 +182,7 @@ const PostJob = () => {
                   placeholder="Required experience"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-gray-700">Number of Positions</Label>
                 <Input
@@ -171,7 +193,7 @@ const PostJob = () => {
                   placeholder="0"
                 />
               </div>
-              
+
               {companies.length > 0 && (
                 <div className="space-y-2">
                   <Label className="text-gray-700">Company</Label>
@@ -183,7 +205,7 @@ const PostJob = () => {
                       <SelectGroup>
                         <SelectLabel>COMPANIES</SelectLabel>
                         {companies.map((company) => (
-                          <SelectItem 
+                          <SelectItem
                             key={company._id}
                             value={company?.name?.toLowerCase()}
                           >
@@ -204,15 +226,15 @@ const PostJob = () => {
                   Posting Job...
                 </Button>
               ) : (
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full bg-blue-600 hover:bg-blue-700"
                   disabled={companies.length === 0}
                 >
                   Post New Job
                 </Button>
               )}
-              
+
               {companies.length === 0 && (
                 <p className="mt-3 text-sm text-red-600 font-medium text-center">
                   *Please register a company first before posting a job*

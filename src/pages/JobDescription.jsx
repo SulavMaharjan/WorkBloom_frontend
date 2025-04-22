@@ -2,7 +2,10 @@ import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import { Button } from "@/components/ui/button";
 import { setSingleJob } from "@/redux/jobSlice";
-import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constant";
+import {
+  APPLICATION_API_END_POINT,
+  USER_API_END_POINT,
+} from "@/utils/constant";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +25,29 @@ const JobDescription = () => {
     ) || false;
 
   const [isApplied, setIsApplied] = useState(isIntiallyApplied);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    // Check if job is bookmarked when component mounts
+    const checkBookmarkStatus = async () => {
+      try {
+        if (user?._id) {
+          const res = await axios.get(`${USER_API_END_POINT}/bookmarks`, {
+            withCredentials: true,
+          });
+          if (res.data.success) {
+            const bookmarked = res.data.bookmarkedJobs.some(
+              (job) => job._id === jobId
+            );
+            setIsBookmarked(bookmarked);
+          }
+        }
+      } catch (error) {
+        console.log("Error checking bookmark status:", error);
+      }
+    };
+    checkBookmarkStatus();
+  }, [jobId, user?._id]);
 
   const applyJobHandler = async () => {
     try {
@@ -43,6 +69,24 @@ const JobDescription = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    }
+  };
+
+  const toggleBookmark = async () => {
+    try {
+      const res = await axios.post(
+        `${USER_API_END_POINT}/bookmark/${jobId}`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        setIsBookmarked(res.data.isBookmarked);
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to update bookmark");
     }
   };
 
@@ -80,7 +124,7 @@ const JobDescription = () => {
             </span>
           </h1>
           <h2 className="text-lg font-semibold text-gray-700">
-            - Krafters Technology Pvt. Ltd.
+            {/* - Krafters Technology Pvt. Ltd. */}
           </h2>
         </div>
 
@@ -97,8 +141,15 @@ const JobDescription = () => {
             {isApplied ? "Already Applied" : "Apply Now"}
           </Button>
 
-          <Button className="bg-gray-300 hover:bg-gray-400 text-black px-6 py-2 rounded-md">
-            Bookmark
+          <Button
+            onClick={toggleBookmark}
+            className={`rounded-lg ${
+              isBookmarked
+                ? "bg-[#4174F5] text-white"
+                : "bg-gray-300 hover:bg-gray-400 text-black"
+            }`}
+          >
+            {isBookmarked ? "Bookmarked" : "Bookmark"}
           </Button>
         </div>
       </div>

@@ -20,12 +20,12 @@ const HeroSection = () => {
 
   return (
     <div>
-      <div className="flex  w-full justify-between pt-4">
+      <div className="flex  w-full justify-between pt-4 pb-8">
         <div className="leftSection w-1/2 ">
           <div className="relative">
             <img src={Orange} alt="" className="h-full w-full pt-2" />
 
-            <div className="absolute top-60 left-10 flex flex-col gap-5 ">
+            <div className="absolute top-32 left-10 flex flex-col gap-5 md:top-48 lg:top-60">
               <div>
                 <h1 className="font-bold text-4xl">WorkBloom -</h1>
                 <h1 className="font-bold text-4xl">

@@ -43,7 +43,7 @@ const AppliedJobTable = () => {
                     <Badge
                       className={`${
                         appliedJob?.status == "rejected"
-                          ? "bg-red-400"
+                          ? "bg-red-700"
                           : appliedJob.status == "pending"
                           ? "bg-gray-400"
                           : "bg-[#FF764A]"
