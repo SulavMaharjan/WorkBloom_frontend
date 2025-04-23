@@ -9,6 +9,7 @@ import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 import { Contact, Mail, Pen, Bookmark, FileText } from "lucide-react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // const skills = ["html", "css", "javascript", "mongodb"];
 const isResume = true;
@@ -17,6 +18,7 @@ const Profile = () => {
   useGetAppliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
   return (
     <div className="bg-white min-h-screen">
@@ -31,10 +33,24 @@ const Profile = () => {
             </Avatar>
           </div>
           <ul className="space-y-3 text-gray-700">
-            <li className="flex items-center gap-2 w-full h-10 p-2 cursor-pointer hover:bg-[#7BBCB0] hover:text-white ">
+            <li
+              className={`flex items-center gap-2 w-full h-10 p-2 cursor-pointer ${
+                location.pathname === "/profile"
+                  ? "bg-[#7BBCB0] text-white"
+                  : "hover:bg-gray-50 hover:text-gray-700"
+              }`}
+              onClick={() => navigate("/profile")}
+            >
               <Contact className="w-5 h-5" /> Profile Information
             </li>
-            <li className="flex items-center gap-2 w-full h-10 p-2 cursor-pointer hover:bg-[#7BBCB0] hover:text-white">
+            <li
+              className={`flex items-center gap-2 w-full h-10 p-2 cursor-pointer ${
+                location.pathname === "/bookmarked"
+                  ? "bg-[#7BBCB0] text-white"
+                  : "hover:bg-gray-50 hover:text-gray-700"
+              }`}
+              onClick={() => navigate("/bookmarked")}
+            >
               <Bookmark className="w-5 h-5" /> Bookmarked
             </li>
           </ul>

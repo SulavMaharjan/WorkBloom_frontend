@@ -14,6 +14,7 @@ import AdminJobs from "./pages/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import BookmarkedJobs from "./pages/BookmarkedJobs";
 
 const appRouter = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/bookmarked",
+    element: <BookmarkedJobs />,
   },
 
   //admin side from here
