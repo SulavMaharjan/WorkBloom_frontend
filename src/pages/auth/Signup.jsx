@@ -37,6 +37,20 @@ const Signup = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (
+      input.phoneNumber.startsWith("-") ||
+      parseInt(input.phoneNumber, 10) < 0
+    ) {
+      toast.error("Phone number cannot be negative");
+      return;
+    }
+
+    if (input.password.length < 5) {
+      toast.error("Password must be at least 5 characters long");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
