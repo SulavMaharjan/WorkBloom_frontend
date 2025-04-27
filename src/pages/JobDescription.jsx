@@ -7,6 +7,7 @@ import {
   USER_API_END_POINT,
 } from "@/utils/constant";
 import axios from "axios";
+import { Bookmark } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -150,6 +151,7 @@ const JobDescription = () => {
             }`}
           >
             {isBookmarked ? "Bookmarked" : "Bookmark"}
+            <Bookmark />
           </Button>
         </div>
       </div>

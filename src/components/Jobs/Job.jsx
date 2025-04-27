@@ -24,7 +24,12 @@ const Job = ({ job }) => {
             ? "Today"
             : `${daysAgoFunction(job?.createdAt)} days ago`}
         </p>
-        <Button variant="outline" className="rounded-full" size="icon">
+        <Button
+          variant="outline"
+          className="rounded-full"
+          size="icon"
+          onClick={() => navigate(`/description/${job?._id}`)}
+        >
           <Bookmark />
         </Button>
       </div>
