@@ -1,4 +1,3 @@
-// AdminJobs.jsx
 import AdminJobsTable from "@/components/admin/AdminJobsTable";
 import Navbar from "@/components/shared/Navbar";
 import { Button } from "@/components/ui/button";
@@ -38,15 +37,15 @@ const AdminJobs = () => {
               </p>
             </div>
             <div className="mt-4 md:mt-0 flex items-center space-x-3">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex items-center text-gray-700 border-gray-300 hover:bg-gray-100"
                 onClick={() => window.location.reload()}
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 Refresh
               </Button>
-              <Button 
+              <Button
                 onClick={() => navigate("/admin/jobs/create")}
                 className="bg-blue-600 hover:bg-blue-700 text-white flex items-center"
               >
@@ -57,7 +56,7 @@ const AdminJobs = () => {
           </div>
         </div>
 
-        {/* Stats Cards - Now only 2 cards */}
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -66,12 +65,16 @@ const AdminJobs = () => {
                 <Briefcase className="h-4 w-4 text-blue-600" />
               </div>
             </div>
-            <p className="mt-2 text-3xl font-semibold text-gray-900">{allAdminJobs.length}</p>
+            <p className="mt-2 text-3xl font-semibold text-gray-900">
+              {allAdminJobs.length}
+            </p>
             <p className="mt-2 text-sm text-gray-500">
-              {allAdminJobs.length > 0 ? `${Math.round(allAdminJobs.length * 0.1)} new in last 30 days` : "No jobs yet"}
+              {allAdminJobs.length > 0
+                ? `${Math.round(allAdminJobs.length * 0.1)} new in last 30 days`
+                : "No jobs yet"}
             </p>
           </div>
-          
+
           <div className="bg-white rounded-lg shadow p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-medium text-gray-500">Active Jobs</h2>
@@ -79,9 +82,15 @@ const AdminJobs = () => {
                 <div className="h-4 w-4 text-green-600">✓</div>
               </div>
             </div>
-            <p className="mt-2 text-3xl font-semibold text-gray-900">{Math.round(allAdminJobs.length * 0.8)}</p>
+            <p className="mt-2 text-3xl font-semibold text-gray-900">
+              {Math.round(allAdminJobs.length * 0.8)}
+            </p>
             <p className="mt-2 text-sm text-gray-500">
-              {allAdminJobs.length > 0 ? `${Math.round(allAdminJobs.length * 0.8 / allAdminJobs.length * 100)}% of total` : "No active jobs"}
+              {allAdminJobs.length > 0
+                ? `${Math.round(
+                    ((allAdminJobs.length * 0.8) / allAdminJobs.length) * 100
+                  )}% of total`
+                : "No active jobs"}
             </p>
           </div>
         </div>
@@ -104,7 +113,7 @@ const AdminJobs = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="px-6 py-4">
             <AdminJobsTable />
           </div>

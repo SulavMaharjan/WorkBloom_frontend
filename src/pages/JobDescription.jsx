@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { setSingleJob } from "@/redux/jobSlice";
 import {
   APPLICATION_API_END_POINT,
+  JOB_API_END_POINT,
   USER_API_END_POINT,
 } from "@/utils/constant";
 import axios from "axios";
@@ -19,6 +20,7 @@ const JobDescription = () => {
   const { singleJob } = useSelector((store) => store.job);
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const isIntiallyApplied =
     singleJob?.applications?.some(
@@ -29,7 +31,6 @@ const JobDescription = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
-    // Check if job is bookmarked when component mounts
     const checkBookmarkStatus = async () => {
       try {
         if (user?._id) {
@@ -56,15 +57,14 @@ const JobDescription = () => {
         `${APPLICATION_API_END_POINT}/apply/${jobId}`,
         { withCredentials: true }
       );
-      console.log(res.data);
 
       if (res.data.success) {
-        setIsApplied(true); //Update local state
+        setIsApplied(true);
         const updatedSingleJob = {
           ...singleJob,
           applications: [...singleJob.applications, { applicant: user?._id }],
         };
-        dispatch(setSingleJob(updatedSingleJob)); //real time UI update
+        dispatch(setSingleJob(updatedSingleJob));
         toast.success(res.data.message);
       }
     } catch (error) {
@@ -103,20 +103,41 @@ const JobDescription = () => {
             res.data.job.applications.some(
               (application) => application.applicant == user?._id
             )
-          ); //Ensure that the state is in sync with the fetched data
+          );
+          setError(null);
+        } else {
+          setError("Failed to fetch job details");
         }
       } catch (error) {
         console.log(error);
+        setError(error.response?.data?.message || "Error fetching job details");
       }
     };
-    fetchSingleJob();
-  }, [jobId, dispatch, user?._id]);
+
+    if (!singleJob || singleJob._id !== jobId) {
+      fetchSingleJob();
+    }
+  }, [jobId, dispatch, user?._id, singleJob]);
+
+  if (error) {
+    return (
+      <div>
+        <Navbar />
+        <div className=" py-[178px] text-center">{error}</div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!singleJob) {
+    return <div></div>;
+  }
 
   return (
     <div>
       <Navbar />
       {/* Header */}
-      <div className="text-center pb-4">
+      <div className="text-center py-6">
         <div className="bg-[#F4F5F7] h-32 flex items-center justify-center gap-4">
           <h1 className="text-2xl font-bold flex items-center gap-2">
             {singleJob?.title}
@@ -124,12 +145,9 @@ const JobDescription = () => {
               ({singleJob?.jobType})
             </span>
           </h1>
-          <h2 className="text-lg font-semibold text-gray-700">
-            {/* - Krafters Technology Pvt. Ltd. */}
-          </h2>
         </div>
 
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-center gap-4 mt-6">
           <Button
             onClick={isApplied ? null : applyJobHandler}
             disabled={isApplied}
@@ -156,12 +174,9 @@ const JobDescription = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto my-10  p-8">
+      <div className="max-w-7xl mx-auto p-8">
         {/* Job Details */}
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold">
-            Minimum Qualification: <span className="font-normal">Bachelor</span>
-          </h2>
+        <div className="mt-4">
           <h2 className="text-lg font-semibold">
             Experience:
             <span className="font-normal">
@@ -176,13 +191,13 @@ const JobDescription = () => {
             <span className="font-normal">{singleJob?.salary} USD</span>
           </h2>
           <h2 className="text-lg font-semibold">
-            Total Applicants :
+            Total Applicants:
             <span className="font-normal">
               {singleJob?.applications?.length}
             </span>
           </h2>
           <h2 className="text-lg font-semibold">
-            Posted Date :
+            Posted Date:
             <span className="font-normal">
               {singleJob?.createdAt.split("T")[0]}
             </span>
@@ -196,8 +211,8 @@ const JobDescription = () => {
         </div>
 
         {/* Requirements */}
-        <div className="mt-6 border-t pt-4">
-          <h2 className="text-xl font-bold"> Job Requirements:</h2>
+        <div className="mt-6 border-t py-6">
+          <h2 className="text-xl font-bold">Job Requirements:</h2>
           <ul className="list-disc pl-6 text-gray-700 mt-2">
             <li>{singleJob?.requirements}</li>
           </ul>

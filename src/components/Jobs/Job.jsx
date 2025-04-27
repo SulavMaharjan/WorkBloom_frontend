@@ -4,16 +4,24 @@ import { Bookmark } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSingleJob } from "@/redux/jobSlice";
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
-  // const jobId = "yoysafdasfaye";
+  const dispatch = useDispatch();
 
   const daysAgoFunction = (mongoDbTime) => {
     const createdAt = new Date(mongoDbTime);
     const currentTime = new Date();
     const timeDifference = currentTime - createdAt;
     return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
+
+  const handleDetailsClick = () => {
+    // Clear current job data before navigation to force fresh fetch
+    dispatch(setSingleJob(null));
+    navigate(`/description/${job?._id}`);
   };
 
   return (
@@ -25,10 +33,10 @@ const Job = ({ job }) => {
             : `${daysAgoFunction(job?.createdAt)} days ago`}
         </p>
         <Button
+          onClick={handleDetailsClick}
           variant="outline"
           className="rounded-full"
           size="icon"
-          onClick={() => navigate(`/description/${job?._id}`)}
         >
           <Bookmark />
         </Button>
@@ -67,7 +75,7 @@ const Job = ({ job }) => {
             </div>
 
             <Button
-              onClick={() => navigate(`/description/${job?._id}`)}
+              onClick={handleDetailsClick}
               className="mt-4"
               variant="outline"
             >
