@@ -10,7 +10,7 @@ const filterData = [
     array: [
       "Kumaripati",
       "Jawalakhel",
-      "Pulchwok",
+      "Phulchwok",
       "Putalisadhak",
       "Kamalpokhari",
     ],
@@ -27,14 +27,10 @@ const filterData = [
       "Designing",
     ],
   },
-  // {
-  //   filterType: "Preference",
-  //   array: ["Part Time", "Full Time"],
-  // },
-  // {
-  //   filterType: "Salary",
-  //   array: ["0 to 4000", "4000 to 10000", "10000 to 50000"],
-  // },
+  {
+    filterType: "Salary",
+    array: ["0 to 1000", "1000 to 5000", "5000 to 10000"],
+  },
 ];
 
 const FilterCard = () => {

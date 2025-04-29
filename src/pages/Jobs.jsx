@@ -15,13 +15,28 @@ const Jobs = () => {
   useEffect(() => {
     if (searchedQuery) {
       const filteredJobs = allJobs.filter((job) => {
-        return (
+        // Check if the query matches any of the standard fields
+        const matchesStandardFields =
           job.title.toLowerCase().includes(searchedQuery.toLowerCase()) ||
           job.description.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job.location.toLowerCase().includes(searchedQuery.toLowerCase())
-          // job.salary.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          // job.preference.toLowerCase().includes(searchedQuery.toLowerCase())
-        );
+          job.location.toLowerCase().includes(searchedQuery.toLowerCase());
+
+        // Check for salary range match
+        let matchesSalary = false;
+        if (searchedQuery.includes("to")) {
+          const [minStr, maxStr] = searchedQuery
+            .split("to")
+            .map((s) => s.trim());
+          const min = parseInt(minStr);
+          const max = parseInt(maxStr);
+
+          if (!isNaN(min) && !isNaN(max)) {
+            const jobSalary = parseInt(job.salary) || 0;
+            matchesSalary = jobSalary >= min && jobSalary <= max;
+          }
+        }
+
+        return matchesStandardFields || matchesSalary;
       });
       setFilterJobs(filteredJobs);
     } else {
